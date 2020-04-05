@@ -19,7 +19,7 @@ public class PersonUnitTest {
 	private PersonService service;
 
 	@Test
-	void savedBillionaireHasFirstName() {
+	void savedPersonHasFirstName() {
 		Person person = new Person("Chima", "Okeri", "Nairobi");
 		when(repo.save(person)).thenReturn(person);
 		Person savedPerson = service.savePerson(person);
