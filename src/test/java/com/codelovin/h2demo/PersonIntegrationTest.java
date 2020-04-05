@@ -31,7 +31,7 @@ public class PersonIntegrationTest {
 	@Test
 	void testAllLayers() throws Exception {
 		Person person = new Person("Elon", "Musk", "Saint Paul");
-		mockMvc.perform(post("/api/billionaires").contentType("application/json")
+		mockMvc.perform(post("/api/persons").contentType("application/json")
 				.content(objectMapper.writeValueAsString(person)))
 				.andExpect(status().isOk());
 
