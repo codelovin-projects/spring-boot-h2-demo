@@ -2,6 +2,8 @@ package com.codelovin.h2demo;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +37,7 @@ public class PersonRestController {
 	}
 
 	@PostMapping("/api/persons")
-	public Person savePerson(@RequestBody Person person) {
+	public Person savePerson(@Valid @RequestBody Person person) {
 		return personService.savePerson(person);
 	}
 
