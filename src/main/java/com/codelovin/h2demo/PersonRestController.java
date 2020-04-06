@@ -56,4 +56,10 @@ public class PersonRestController {
 			personService.updatePerson(person);
 		}
 	}
+	
+	@GetMapping("/api/persons/info")
+	public ResponseEntity<String> getInfo() {
+		String infoMessage = "This is the version 1.0 of Person API.";
+		return new ResponseEntity<>(infoMessage, HttpStatus.OK);
+	}
 }
