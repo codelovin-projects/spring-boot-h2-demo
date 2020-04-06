@@ -8,9 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import org.springframework.hateoas.RepresentationModel;
+
 @Entity
 @Table(name = "PERSON")
-public class Person {
+public class Person extends RepresentationModel<Person> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

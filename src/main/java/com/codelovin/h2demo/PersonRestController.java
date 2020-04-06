@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+
 @RestController
 public class PersonRestController {
 
@@ -28,12 +30,13 @@ public class PersonRestController {
 	}
 	
 	@GetMapping("/api/persons/{firstName}")
-	public Person getPerson(@PathVariable(name = "firstName") String firstName) {
+	public ResponseEntity<Person> getPerson(@PathVariable(name = "firstName") String firstName) {
 		Person person = personService.getPersonByFirstName(firstName);
 		if (person == null) {
 			throw new PersonNotFoundException("FirstName: " + firstName);
 		}
-		return person;
+		person.add(linkTo(methodOn(PersonRestController.class).getPersons()).withRel("all-persons"));
+		return new ResponseEntity<>(person, HttpStatus.OK);
 	}
 
 	@PostMapping("/api/persons")
