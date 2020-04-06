@@ -1,10 +1,12 @@
 package com.codelovin.h2demo;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
@@ -22,6 +25,9 @@ public class PersonRestController {
 
 	@Autowired
 	private PersonService personService;
+	
+	@Autowired
+	private MessageSource messageSource;
 
 	@GetMapping("/api/persons")
 	public ResponseEntity<List<Person>> getPersons() {
@@ -58,8 +64,8 @@ public class PersonRestController {
 	}
 	
 	@GetMapping("/api/persons/info")
-	public ResponseEntity<String> getInfo() {
-		String infoMessage = "This is the version 1.0 of Person API.";
+	public ResponseEntity<String> getInfo(@RequestHeader(name="Accept-Language", required = false) Locale locale) {
+		String infoMessage = messageSource.getMessage("api.info.message", null, locale);
 		return new ResponseEntity<>(infoMessage, HttpStatus.OK);
 	}
 }
