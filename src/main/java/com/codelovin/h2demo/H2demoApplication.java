@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 @SpringBootApplication
@@ -18,9 +19,9 @@ public class H2demoApplication {
 
 	@Bean
 	public LocaleResolver localeResolver() {
-	    SessionLocaleResolver sessionResolver = new SessionLocaleResolver();
-	    sessionResolver.setDefaultLocale(Locale.US);
-	    return sessionResolver;
+	    AcceptHeaderLocaleResolver ahResolver = new AcceptHeaderLocaleResolver();
+	    ahResolver.setDefaultLocale(Locale.US);
+	    return ahResolver;
 	}
 	
 	@Bean

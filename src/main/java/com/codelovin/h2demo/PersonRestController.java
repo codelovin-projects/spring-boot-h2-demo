@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -64,8 +65,8 @@ public class PersonRestController {
 	}
 	
 	@GetMapping("/api/persons/info")
-	public ResponseEntity<String> getInfo(@RequestHeader(name="Accept-Language", required = false) Locale locale) {
-		String infoMessage = messageSource.getMessage("api.info.message", null, locale);
+	public ResponseEntity<String> getInfo() {
+		String infoMessage = messageSource.getMessage("api.info.message", null, LocaleContextHolder.getLocale());
 		return new ResponseEntity<>(infoMessage, HttpStatus.OK);
 	}
 }
