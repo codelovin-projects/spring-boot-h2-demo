@@ -19,7 +19,7 @@ public class Person extends RepresentationModel<Person> {
 	@Column(name = "ID")
 	private Long id;
 
-	@Size(min=5, message = "First name should contain at least 5 characters")
+	@Size(min=4, message = "First name should contain at least 4 characters")
 	@Column(name = "FIRST_NAME")
 	private String firstName;
 
