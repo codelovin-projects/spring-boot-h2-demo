@@ -1,7 +1,13 @@
 package com.codelovin.h2demo;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
+
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,4 +32,23 @@ public class PersonUnitTest {
 		assertThat(savedPerson.getFirstName()).isNotNull();
 	}
 
+	@Test
+	void retrievedPersonHasFullName() {
+		Person person = new Person("Sunil", "Sharma", "Mumbai");
+		Optional<Person> optPerson = Optional.of(person);
+		when(repo.findById(10L)).thenReturn(optPerson);
+		
+		String fullName = service.getTheFullName(10L);
+		assertEquals("Sunil Sharma",fullName);
+	}
+	
+	@Test
+	void testNoSuchElementException() {		
+		Exception exception = assertThrows(
+				NoSuchElementException.class, 
+				() -> service.getTheFullName(9L));
+		
+		assertThat(exception).isNotNull();
+		assertTrue(exception.getMessage().contains("No value present"));
+	}
 }
